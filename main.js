@@ -1,12 +1,11 @@
 const searchInput = document.querySelector(".search__input");
 const searchList = document.querySelector(".search__list");
 const repoList = document.querySelector(".repo__li");
+const perPage = "&per_page=5";
 
 function runFetch() {
   searchList.innerHTML = "";
-  fetch(
-    `https://api.github.com/search/repositories?q=${searchQuery}&per_page=5`
-  )
+  fetch(`https://api.github.com/search/repositories?q=${searchQuery}${perPage}`)
     .then((response) => {
       console.log(response);
       return response.json();
@@ -23,6 +22,10 @@ function runFetch() {
         console.log(users.owner.login);
       }
       console.log(data.items);
+    })
+    .catch((e) => {
+      alert(`Произошла ошибка: ${e.message}`);
+      console.error(e);
     });
 }
 
