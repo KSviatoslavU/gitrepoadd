@@ -1,12 +1,15 @@
 const searchInput = document.querySelector(".search__input");
 const searchList = document.querySelector(".search__list");
 const repoList = document.querySelector(".repo__li");
-const perPage = "&per_page=5";
+const perPage = "5";
 
 function runFetch() {
   searchList.innerHTML = "";
-  fetch(`https://api.github.com/search/repositories?q=${searchQuery}${perPage}`)
+  fetch(
+    `https://api.github.com/search/repositories?q=${searchQuery}&per_page=${perPage}`
+  )
     .then((response) => {
+      if (!response.ok) throw new Error(`Ошибка ${response.status}`);
       console.log(response);
       return response.json();
     })
